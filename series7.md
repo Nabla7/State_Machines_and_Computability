@@ -2,10 +2,10 @@
 Let's simplify the given grammar by removing useless symbols.
 
 Given grammar:
-1. \( S \rightarrow AB|CA \)
-2. \( A \rightarrow a \)
-3. \( B \rightarrow BC|AB \)
-4. \( C \rightarrow ab|b \)
+1. \( S -> AB|CA \)
+2. \( A -> a \)
+3. \( B -> BC|AB \)
+4. \( C -> ab|b \)
 
 **Step 1:** Identify non-terminals from which terminals can be derived.
 
@@ -16,17 +16,17 @@ Starting with the given productions:
 Thus, initially, \( \{A, C\} \) are the non-terminals from which terminals can be derived.
 
 Using the above information, we can further deduce:
-1. From \( B \), using the production \( B \rightarrow BC \), we can derive \( b \) since \( C \) derives \( b \).
-2. From \( S \), using the production \( S \rightarrow AB \), we can derive \( a \) and \( b \) since both \( A \) and \( B \) can derive terminals.
+1. From \( B \), using the production \( B -> BC \), we can derive \( b \) since \( C \) derives \( b \).
+2. From \( S \), using the production \( S -> AB \), we can derive \( a \) and \( b \) since both \( A \) and \( B \) can derive terminals.
 
 After this iteration, the set of non-terminals from which terminals can be derived becomes \( \{A, B, C\} \). No new non-terminals can be added, so we move to the next step.
 
 **Step 2:** Identify non-terminals that are reachable from the start symbol.
 
 Starting from \( S \):
-1. \( S \) can reach \( A \) and \( B \) using the production \( S \rightarrow AB \).
-2. \( S \) can also reach \( C \) using the production \( S \rightarrow CA \).
-3. \( B \) can reach \( A \) and \( C \) using the production \( B \rightarrow AB \) and \( B \rightarrow BC \), respectively.
+1. \( S \) can reach \( A \) and \( B \) using the production \( S -> AB \).
+2. \( S \) can also reach \( C \) using the production \( S -> CA \).
+3. \( B \) can reach \( A \) and \( C \) using the production \( B -> AB \) and \( B -> BC \), respectively.
 
 Therefore, all non-terminals \( \{A, B, C\} \) are reachable from \( S \).
 
@@ -35,52 +35,52 @@ Therefore, all non-terminals \( \{A, B, C\} \) are reachable from \( S \).
 From the above steps, all non-terminals \( \{A, B, C\} \) are useful as they can derive terminals and are reachable from \( S \). So, we don't need to remove any production.
 
 **Final Simplified Grammar:**
-1. \( S \rightarrow AB|CA \)
-2. \( A \rightarrow a \)
-3. \( B \rightarrow BC|AB \)
-4. \( C \rightarrow ab|b \)
+1. \( S -> AB|CA \)
+2. \( A -> a \)
+3. \( B -> BC|AB \)
+4. \( C -> ab|b \)
 
 The grammar remains unchanged as all the symbols are useful.
 
 # Q2
 
 Given grammar:
-1. \( S \rightarrow ASB|\varepsilon \)
-2. \( A \rightarrow aAS|a \)
-3. \( B \rightarrow SbS|A|bb \)
+1. \( S -> ASB|\varepsilon \)
+2. \( A -> aAS|a \)
+3. \( B -> SbS|A|bb \)
 
 ### a. Elimineer \( \varepsilon \)-productieregels.
 
 To eliminate the \( \varepsilon \)-productions (productions that generate the empty string), we first identify the nullable variables (non-terminals that can produce \( \varepsilon \)).
 
 From the given grammar, we can deduce:
-1. \( S \) is nullable because \( S \rightarrow \varepsilon \).
-2. \( B \) is nullable because \( B \rightarrow A \) and \( A \rightarrow a \), but \( A \) does not produce \( \varepsilon \), so we don't consider \( A \) as nullable.
+1. \( S \) is nullable because \( S -> \varepsilon \).
+2. \( B \) is nullable because \( B -> A \) and \( A -> a \), but \( A \) does not produce \( \varepsilon \), so we don't consider \( A \) as nullable.
 
 Now, we will add new productions for the nullable variables:
 
-1. \( S \rightarrow ASB|A|SB|SbS|B \)
-2. \( A \rightarrow aAS|aA|aS|a \)
-3. \( B \rightarrow SbS|Sb|bS|A|bb \)
+1. \( S -> ASB|A|SB|SbS|B \)
+2. \( A -> aAS|aA|aS|a \)
+3. \( B -> SbS|Sb|bS|A|bb \)
 
 ### b. Elimineer unit producties.
 
 To eliminate unit productions, we will first identify all unit pairs:
 
-1. \( (S, A) \): From \( S \rightarrow A \)
-2. \( (S, B) \): From \( S \rightarrow B \)
-3. \( (B, A) \): From \( B \rightarrow A \)
+1. \( (S, A) \): From \( S -> A \)
+2. \( (S, B) \): From \( S -> B \)
+3. \( (B, A) \): From \( B -> A \)
 
 Now, replace the unit productions with equivalent productions:
 
-For \( S \rightarrow A \), we add:
-1. \( S \rightarrow aAS|aA|aS|a \)
+For \( S -> A \), we add:
+1. \( S -> aAS|aA|aS|a \)
 
-For \( S \rightarrow B \), we add:
-1. \( S \rightarrow SbS|Sb|bS|bb \)
+For \( S -> B \), we add:
+1. \( S -> SbS|Sb|bS|bb \)
 
-For \( B \rightarrow A \), we add:
-1. \( B \rightarrow aAS|aA|aS|a \)
+For \( B -> A \), we add:
+1. \( B -> aAS|aA|aS|a \)
 
 ### c. Zijn er nutteloze symbolen? Zo ja elimineer ze.
 
@@ -88,35 +88,35 @@ By looking at the grammar, all symbols can produce terminal strings and are reac
 
 ### d. Zet de grammatica om in CNF (Chomsky Normal Form).
 
-To convert the grammar to CNF, we need to ensure that every production is of the form \( A \rightarrow BC \) or \( A \rightarrow a \), where A, B, and C are non-terminals and a is a terminal.
+To convert the grammar to CNF, we need to ensure that every production is of the form \( A -> BC \) or \( A -> a \), where A, B, and C are non-terminals and a is a terminal.
 
 For simplicity, we'll introduce new non-terminals for terminals:
-1. \( X_a \rightarrow a \)
-2. \( X_b \rightarrow b \)
+1. \( X_a -> a \)
+2. \( X_b -> b \)
 
 Now, replace terminals in the grammar:
 
-1. \( S \rightarrow AX_aS|X_aA|AS|X_a \)
-2. \( A \rightarrow X_aAX_a|X_aA|X_aS|X_a \)
-3. \( B \rightarrow SS|SX_b|X_bS|X_bX_b \)
+1. \( S -> AX_aS|X_aA|AS|X_a \)
+2. \( A -> X_aAX_a|X_aA|X_aS|X_a \)
+3. \( B -> SS|SX_b|X_bS|X_bX_b \)
 
 Now, further break down productions that aren't in CNF:
 
-1. \( S \rightarrow AX_aS|X_aA|AS|X_a \)
-2. \( A \rightarrow X_aAX_a|X_aA|X_aS|X_a \)
-3. \( B \rightarrow SS|SX_b|X_bS|X_bX_b \)
-4. \( S1 \rightarrow AX_a \) (New production)
-5. \( A1 \rightarrow AX_a \) (New production)
-6. \( B1 \rightarrow X_bS \) (New production)
+1. \( S -> AX_aS|X_aA|AS|X_a \)
+2. \( A -> X_aAX_a|X_aA|X_aS|X_a \)
+3. \( B -> SS|SX_b|X_bS|X_bX_b \)
+4. \( S1 -> AX_a \) (New production)
+5. \( A1 -> AX_a \) (New production)
+6. \( B1 -> X_bS \) (New production)
 
 Replace productions in the grammar:
 
-1. \( S \rightarrow S1S|X_aA|AS|X_a \)
-2. \( A \rightarrow A1X_a|X_aA|X_aS|X_a \)
-3. \( B \rightarrow SS|SX_b|B1|X_bX_b \)
-4. \( S1 \rightarrow AX_a \)
-5. \( A1 \rightarrow AX_a \)
-6. \( B1 \rightarrow X_bS \)
+1. \( S -> S1S|X_aA|AS|X_a \)
+2. \( A -> A1X_a|X_aA|X_aS|X_a \)
+3. \( B -> SS|SX_b|B1|X_bX_b \)
+4. \( S1 -> AX_a \)
+5. \( A1 -> AX_a \)
+6. \( B1 -> X_bS \)
 
 Now, the grammar is in CNF. 
 
@@ -146,22 +146,22 @@ Initialize the diagonals:
 Fill in the table:
 
 For substring `ab` (T[1,2]):
-- \( S \rightarrow AB \) can generate `ab`. So, T[1,2] contains \( S \).
+- \( S -> AB \) can generate `ab`. So, T[1,2] contains \( S \).
 
 For substring `bb` (T[2,3]):
 - \( C \) doesn't produce `b`. Thus, T[2,3] remains as \( B \).
 
 For substring `bc` (T[3,4]):
-- \( C \rightarrow CB \) can generate `bc`. So, T[3,4] contains \( C \).
+- \( C -> CB \) can generate `bc`. So, T[3,4] contains \( C \).
 
 For substring `abb` (T[1,3]):
 - No suitable production for both splits `a|bb` and `ab|b`.
 
 For substring `bbc` (T[2,4]):
-- \( B \rightarrow BC \) generates `bbc`. So, T[2,4] contains \( B \).
+- \( B -> BC \) generates `bbc`. So, T[2,4] contains \( B \).
 
 For substring `abbc` (T[1,4]):
-- \( S \rightarrow AB \) can generate `abbc`. So, T[1,4] contains \( S \).
+- \( S -> AB \) can generate `abbc`. So, T[1,4] contains \( S \).
 
 Since the top-right cell, T[1,4], contains the start symbol \( S \), the string `abbc` is in the language of the grammar.
 
