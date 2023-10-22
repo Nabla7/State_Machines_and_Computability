@@ -1,3 +1,5 @@
+---
+Q1
 Let's simplify the given grammar by removing useless symbols.
 
 Given grammar:
@@ -41,7 +43,8 @@ From the above steps, all non-terminals \( \{A, B, C\} \) are useful as they can
 
 The grammar remains unchanged as all the symbols are useful.
 
-Alright! Let's work on the given grammar for question 2.
+---
+#Q2
 
 Given grammar:
 1. \( S \rightarrow ASB|\varepsilon \)
@@ -118,5 +121,53 @@ Replace productions in the grammar:
 6. \( B1 \rightarrow X_bS \)
 
 Now, the grammar is in CNF. 
+
+---
+#Q3
+
+Given string: `abbc`
+
+We'll create a table of size 4x4 to represent substrings of varying lengths. Let's denote this table as `T`.
+
+Initialize the diagonals:
+
+```
+|   | 1  | 2  | 3  | 4  |
+|---|----|----|----|----|
+| 1 | A  | S  |    | S  |
+| 2 |    | B  | B  | B,C|
+| 3 |    |    | B  | C  |
+| 4 |    |    |    | A,C|
+```
+
+**Explanations:**
+
+1. \( A \) produces `a`, so T[1,1] contains \( A \).
+2. \( B \) produces `b`, so T[2,2] and T[3,3] contain \( B \).
+3. \( A \) and \( C \) produce `c`, so T[4,4] contains \( A \) and \( C \).
+
+Fill in the table:
+
+For substring `ab` (T[1,2]):
+- \( S \rightarrow AB \) can generate `ab`. So, T[1,2] contains \( S \).
+
+For substring `bb` (T[2,3]):
+- \( C \) doesn't produce `b`. Thus, T[2,3] remains as \( B \).
+
+For substring `bc` (T[3,4]):
+- \( C \rightarrow CB \) can generate `bc`. So, T[3,4] contains \( C \).
+
+For substring `abb` (T[1,3]):
+- No suitable production for both splits `a|bb` and `ab|b`.
+
+For substring `bbc` (T[2,4]):
+- \( B \rightarrow BC \) generates `bbc`. So, T[2,4] contains \( B \).
+
+For substring `abbc` (T[1,4]):
+- \( S \rightarrow AB \) can generate `abbc`. So, T[1,4] contains \( S \).
+
+Since the top-right cell, T[1,4], contains the start symbol \( S \), the string `abbc` is in the language of the grammar.
+
+---
 
 
