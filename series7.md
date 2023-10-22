@@ -1,5 +1,4 @@
----
-Q1
+# Q1
 Let's simplify the given grammar by removing useless symbols.
 
 Given grammar:
@@ -44,7 +43,7 @@ From the above steps, all non-terminals \( \{A, B, C\} \) are useful as they can
 The grammar remains unchanged as all the symbols are useful.
 
 ---
-#Q2
+# Q2
 
 Given grammar:
 1. \( S \rightarrow ASB|\varepsilon \)
@@ -123,7 +122,7 @@ Replace productions in the grammar:
 Now, the grammar is in CNF. 
 
 ---
-#Q3
+# Q3
 
 Given string: `abbc`
 
