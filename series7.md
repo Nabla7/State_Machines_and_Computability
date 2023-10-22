@@ -42,7 +42,6 @@ From the above steps, all non-terminals \( \{A, B, C\} \) are useful as they can
 
 The grammar remains unchanged as all the symbols are useful.
 
----
 # Q2
 
 Given grammar:
@@ -121,7 +120,6 @@ Replace productions in the grammar:
 
 Now, the grammar is in CNF. 
 
----
 # Q3
 
 Given string: `abbc`
@@ -166,7 +164,5 @@ For substring `abbc` (T[1,4]):
 - \( S \rightarrow AB \) can generate `abbc`. So, T[1,4] contains \( S \).
 
 Since the top-right cell, T[1,4], contains the start symbol \( S \), the string `abbc` is in the language of the grammar.
-
----
 
 
