@@ -1,10 +1,22 @@
-
 #include <iostream>
 #include "CFG.h"
 
 
 using namespace std;
 
+
+#include "CFG.h"
+
+using namespace std;
+
+int main() {
+    CFG cfg("input-cyk1.json");
+    cfg.print();
+    cfg.accepts("baaba");
+    cfg.accepts("abba");
+    return 0;
+}
+/*
 int main() {
     CFG cfg("input.json");
     cfg.print();
@@ -12,7 +24,7 @@ int main() {
 }
 
 //  Json Tests
-/*#include <iostream>
+#include <iostream>
 #include <fstream>
 #include "json.hpp"
 using namespace std;

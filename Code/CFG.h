@@ -16,11 +16,16 @@ public:
             : V(Variables), T(Terminals), P(Productions), S(StartSymbol) {}
     CFG(const std::string& filename);
     void print();
+
+    bool accepts(const std::string& input) const;
+
+
 private:
     std::set<std::string> V; // Variables
     std::set<std::string> T; // Terminals
     std::map<std::string, std::vector<std::vector<std::string>>> P; // Productions
     std::string S; // Start Symbol
+
 };
 
 #endif // CFG_H
