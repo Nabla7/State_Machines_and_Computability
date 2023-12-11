@@ -1,5 +1,8 @@
 # State_Machines_and_Computability
 
+https://ncatlab.org/nlab/show/partial+recursive+function
+https://ncatlab.org/nlab/show/computable+function
+https://ncatlab.org/nlab/show/partial+function
 
 A partial recursive function is a partial function of natural numbers which can be defined by an algorithm or computer program (e.g., a Turing machine), taking finitely many natural numbers as inputs, and which on input may run forever, but otherwise eventually halts and returns a natural number as output.
 
@@ -13,14 +16,6 @@ A partial recursive function is a partial function from $\mathbb{N}^k$ to $\math
 4. Is closed under composition: If $f_1, \ldots, f_n: \mathbb{N}^{k} \to \mathbb{N}$ and $g: \mathbb{N}^n \to \mathbb{N}$ belong to $\mathcal{C}$, then $g \circ (f_1, \ldots, f_n): \mathbb{N}^{k} \to \mathbb{N}$ also belongs to $\mathcal{C}$.
 5. Is closed under primitive recursion: If $g: \mathbb{N}^k \to \mathbb{N}$ and $h: \mathbb{N}^{k+2} \to \mathbb{N}$ belong to $\mathcal{C}$, then the function $f: \mathbb{N}^{k+1} \to \mathbb{N}$ defined recursively by $f(0, \mathbf{x}) = g(\mathbf{x})$ and $f(y+1, \mathbf{x}) = h(y, f(y, \mathbf{x}), \mathbf{x})$ also belongs to $\mathcal{C}$.
 6. Is closed under minimization: For any _total_ function $f: \mathbb{N}^{k+1} \to \mathbb{N}$ in $\mathcal{C}$, the partial function $g: \mathbb{N}^k \to \mathbb{N}$, defined by $g(\mathbf{x}) = c$ iff $f(c, \mathbf{x}) = 0$ and $f(d, \mathbf{x}) > 0$ for $0 \leq d < c$, also belongs to $\mathcal{C}$.
-
-
-
-
-
-
-
-
 
 ### Bare-Bones Programming Language 
 
