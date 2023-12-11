@@ -31,3 +31,74 @@ This language can express any partial recursive function, ensuring that it has e
 ### Expressive Power of Programming Languages
 
 The expressive power of a programming language is tied to its ability to compute these functions. Any language that can perform basic operations like incrementing/decrementing values and looping (while structure) can express solutions to algorithmically solvable problems. Thus, the expressive power of a programming language is more about its ability to represent these basic operations than about its complexity or higher-level features.
+
+
+---
+
+**Theorem: Partial Recursive Implies Bare-Bones Programmability**
+
+**Objective:**
+Our goal is to establish that any partial recursive function can be computed by a program in a bare-bones programming language.
+
+**Bare-Bones Language Overview:**
+- **Data Types**: Only nonnegative integers are used.
+- **Variables**: Automatically declared upon first use.
+- **Operations**: Increment (`incr`) and decrement (`decr`).
+- **Control Structures**: A single loop construct (`while`).
+
+**Convention for Function Representation:**
+- To compute a function \( f: \mathbb{N}^M \to \mathbb{N}^N \), identifiers \( X_1, ..., X_M \) are used for inputs and \( Z_1, ..., Z_N \) for outputs.
+
+**Computing Initial Functions:**
+- Zero function \( \sigma \) is implemented as `clear Z;`.
+- Successor function \( S \) is implemented as:
+  ```
+  Z_1 ← X_i;
+  incr Z_1;
+  ```
+- Projection function \( P_i^j \) is implemented as `Z_1 ← X_j;`.
+
+**Programs Representing Basic Operations (Figure 4.15):**
+- **Copy Operation**: The program to copy the value from `name1` to `name2` is given as:
+  ```
+  clear aux;
+  clear name2;
+  name1 aux = 0;
+  do;
+    decr name1;
+    incr aux;
+    incr name2;
+  while aux ≠ 0 do;
+    decr aux;
+    incr name1;
+  end;
+  ```
+
+**General Partial Recursive Functions:**
+- For functions computed by programs \( F \) and \( G \), concatenate \( G \) onto \( F \) and adjust outputs from \( F \) to serve as inputs to \( G \).
+
+**Program for Primitive Recursion (Figure 4.16):**
+- The program to compute a function defined by primitive recursion is:
+  ```
+  clear X_m+1;
+  while Y ≠ 0 do;
+    incr X_m+1;
+    G
+  end;
+  Z_1 ← X_m+1;
+  ```
+
+**Program for Minimization (Figure 4.17):**
+- To compute \( \mu y[g(x, y) = 0] \), the program is:
+  ```
+  clear X_n+1;
+  G;
+  while Z_1 ≠ 0 do;
+    incr X_n+1;
+    G;
+  end;
+  Z_1 ← X_n+1;
+  ```
+
+**Conclusion:**
+We have structured a proof that demonstrates the computability of any partial recursive function using a bare-bones programming language. This is supported by the Church-Turing thesis, which asserts that any algorithmically solvable problem can be solved using a language that allows for nonnegative integer manipulation, incrementing, decrementing, and looping. Additional features in a programming language provide convenience but are not necessary for computational completeness.
