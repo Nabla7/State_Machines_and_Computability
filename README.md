@@ -6,6 +6,8 @@ https://ncatlab.org/nlab/show/computable+function
 https://ncatlab.org/nlab/show/partial+function
 ```
 
+## Pal Clip 5 : Partial Recursive Functions and Bare Bones Programming Language Equivalence
+
 A partial recursive function is a partial function of natural numbers which can be defined by an algorithm or computer program (e.g., a Turing machine), taking finitely many natural numbers as inputs, and which on input may run forever, but otherwise eventually halts and returns a natural number as output.
 
 ### Definition of Partial Recursive Functions
