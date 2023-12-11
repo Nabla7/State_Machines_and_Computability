@@ -1,8 +1,10 @@
 # State_Machines_and_Computability
 
+```
 https://ncatlab.org/nlab/show/partial+recursive+function
 https://ncatlab.org/nlab/show/computable+function
 https://ncatlab.org/nlab/show/partial+function
+```
 
 A partial recursive function is a partial function of natural numbers which can be defined by an algorithm or computer program (e.g., a Turing machine), taking finitely many natural numbers as inputs, and which on input may run forever, but otherwise eventually halts and returns a natural number as output.
 
@@ -20,17 +22,17 @@ A partial recursive function is a partial function from $\mathbb{N}^k$ to $\math
 **Minimization Process:**
 
 1. **Function Construction:** 
-   - A function $\( f:\mathbb{N}^N \to \mathbb{N} \)$ is constructed from another function $\( g:\mathbb{N}^{N+1} \to \mathbb{N} \)$.
-   - The new function $\( f(x) \)$ is defined as the smallest $\( y \)$ in $\( \mathbb{N} \)$ such that $\( g(x, y) = 0 \)$ and $\( g(x, z) \)$ is defined for all $\( z < y \)$.
+   - A function $f:\mathbb{N}^N \to \mathbb{N}$ is constructed from another function $g:\mathbb{N}^{N+1} \to \mathbb{N}$.
+   - The new function $f(x)$ is defined as the smallest $y$ in $\mathbb{N}$ such that $g(x, y) = 0$ and $g(x, z)$ is defined for all $z < y$.
 
 2. **Notation and Interpretation:**
-   - This is formally represented as $\( f(x) = \mu y[g(x, y) = 0] \)$, read as "f(x) is the smallest nonnegative integer y for which g(x, y) is zero and g(x, z) is defined for all nonnegative integers z less than y."
+   - This is formally represented as $f(x) = \mu y[g(x, y) = 0]$, read as "f(x) is the smallest nonnegative integer y for which g(x, y) is zero and g(x, z) is defined for all nonnegative integers z less than y."
 
 **Computability and Minimization:**
 
-- If $\( g \)$ is a computable function, then the minimization of $\( g \), \( \mu y[g(x, y) = 0] \)$, is computed by iteratively calculating $\( g(x, 0) \), \( g(x, 1) \), \( g(x, 2) \)$, and so on, until a value of 0 is obtained or a non-defined value is reached.
-- If $\( g(x, z) \)$ is never zero for any $\( z \)$, then $\( f(x) \)$ is undefined.
-- If $\( g(x, z) \)$ equals zero for some $\( z \)$, then $\( f(x) \)$ is defined and equals that $\( z \)$.
+- If $g$ is a computable function, then the minimization of $g, \mu y[g(x, y) = 0]$, is computed by iteratively calculating $g(x, 0), g(x, 1), g(x, 2)$, and so on, until a value of 0 is obtained or a non-defined value is reached.
+- If $g(x, z)$ is never zero for any $z$, then $f(x)$ is undefined.
+- If $g(x, z)$ equals zero for some $z$, then $f(x)$ is defined and equals that $z$.
 
 **Conclusion:**
 
@@ -64,45 +66,72 @@ Our goal is to establish that any partial recursive function can be computed by 
 - **Control Structures**: A single loop construct (`while`).
 
 **Convention for Function Representation:**
-- To compute a function $\( f: \mathbb{N}^M \to \mathbb{N}^N \)$, identifiers $\( X_1, ..., X_M \)$ are used for inputs and $\( Z_1, ..., Z_N \)$ for outputs.
+- To compute a function $f: \mathbb{N}^M \to \mathbb{N}^N$, identifiers $X_1, ..., X_M$ are used for inputs and $Z_1, ..., Z_N$ for outputs.
 
 **Computing Initial Functions:**
-- Zero function $\( \sigma \)$ is implemented as `clear Z;`.
-- Successor function $\( S \)$ is implemented as:
+- Zero function $\sigma$ is implemented as `clear Z;`.
+- Successor function $S$ is implemented as:
   ```
   Z_1 ← X_i;
   incr Z_1;
   ```
-- Projection function $\( P_i^j \)$ is implemented as `Z_1 ← X_j;`.
+- Projection function $P_i^j$ is implemented as:
+   ```
+   clear Z;       // Initialize Z to 0
+   while X_i ≠ 0 do;
+     incr Z;      // Increment Z to match the value of X_i
+     decr X_i;    // Decrement X_i to continue the loop until X_i is 0
+   end;
+   while Z ≠ 0 do; // Restore the original value of X_i
+     incr X_i;
+     decr Z;
+   end;
+   ```
 
 **General Partial Recursive Functions:**
-- For functions computed by programs $\( F \)$ and $\( G \)$, concatenate $\( G \)$ onto $\( F \)$ and adjust outputs from $\( F \)$ to serve as inputs to $\( G \)$.
+- The computational capabilities of the bare-bones language extend to the synthesis of general partial recursive functions. This is established by combining simpler functions into more complex ones, as illustrated by the following constructions:
+
+**Primitive Recursion Construction:**
+- Consider the situation where program $G$ computes a partial function $g: \mathbb{N}^k \to \mathbb{N}^m$, and program $H$ computes another function $h: \mathbb{N}^{k+m+1} \to \mathbb{N}^m$. A third function $f: \mathbb{N}^{k+1} \to \mathbb{N}^m$ can be defined by primitive recursion:
+
+
+$f(\mathbf{x}, 0) = g(\mathbf{x})$
+
+
+$f(\mathbf{x}, y + 1) = h(\mathbf{x}, y, f(\mathbf{x}, y))$
+
+- The program to compute $f$, as delineated in Figure 4.16, assumes that $G$ and $H$ are side-effect-free.
 
 **Program for Primitive Recursion (Figure 4.16):**
-- The program to compute a function defined by primitive recursion is:
-  ```
-  clear X_m+1;
-  while Y ≠ 0 do;
-    incr X_m+1;
-    G
-  end;
-  Z_1 ← X_m+1;
-  ```
+- The bare-bones language facilitates the encoding of the primitive recursive function $f$ via the following program structure, reflecting the recursive definition provided:
+
+```plaintext
+clear X_m+1;             // Set the auxiliary variable to zero
+while Y ≠ 0 do;          // Begin a loop that simulates recursive depth
+  incr X_m+1;            // Increment to prepare for the next recursive call
+  G                      // Embed the computation of function g
+end;
+Z_1 ← X_m+1;             // Assign the result to the output variable
+```
+
+**Minimization Construction:**
+- If $G$ is a program within this language that calculates $g: \mathbb{N}^{k+1} \to \mathbb{N}$, we can construct a program that determines the smallest $y$ such that $g(\mathbf{x}, y) = 0$, thus performing the minimization operation.
 
 **Program for Minimization (Figure 4.17):**
-- To compute $\( \mu y[g(x, y) = 0] \)$, the program is:
-  ```
-  clear X_n+1;
-  G;
-  while Z_1 ≠ 0 do;
-    incr X_n+1;
-    G;
-  end;
-  Z_1 ← X_n+1;
-  ```
+- The minimization operation $\mu y[g(\mathbf{x}, y) = 0]$ is represented in the bare-bones language as follows, aligning with the iterative nature of this operation:
+
+```plaintext
+clear X_n+1;             // Initialize the counter variable
+G;                       // Compute the function g
+while Z_1 ≠ 0 do;        // Check if the condition g(x, y) = 0 is met
+  incr X_n+1;            // Increment the counter, searching for the minimal y
+  G;                     // Re-evaluate function g with the new counter value
+end;
+Z_1 ← X_n+1;             // Assign the minimal satisfying y to the output variable
+```
 
 **Conclusion:**
-We have structured a proof that demonstrates the computability of any partial recursive function using a bare-bones programming language. This is supported by the Church-Turing thesis, which asserts that any algorithmically solvable problem can be solved using a language that allows for nonnegative integer manipulation, incrementing, decrementing, and looping. Additional features in a programming language provide convenience but are not necessary for computational completeness.
+- In summary, the above constructs demonstrate that the bare-bones programming language possesses the requisite expressive power to model any partial recursive function. The language's ability to increment, decrement, and iterate over conditions, coupled with the absence of side effects, ensures the accurate computation of complex recursive functions. This complete proof substantiates the Church-Turing thesis by confirming that a language as elementary as the bare-bones language is computationally complete, capable of expressing any algorithmically solvable problem.
 
 
 -----
@@ -111,9 +140,8 @@ We have structured a proof that demonstrates the computability of any partial re
 
 **Theorem: Bare-Bones Programmability Implies Partial Recursive**
 
-**Overview of the Bare-Bones Language's Capabilities:**
-
-The surprising computational strength of the bare-bones language raises a conjecture about its limitations. If the language could compute functions beyond what is partial recursive, it would contradict the Church-Turing thesis. However, the bare-bones language is indeed bound by the capabilities of partial recursive functions.
+**Objective:**
+Our goal is to establish that a bare-bones programming language can be used to create programs that can compute any partial recursive function. .
 
 **Fundamental Language Requirements:**
 
@@ -123,21 +151,21 @@ A program in the bare-bones language must involve at least one of the following 
 
 When a program consists of only one statement, there are three possibilities:
 
-1. `incr` or `decr` statements, which compute the primitive recursive functions $\( \sigma \)$ (successor) and $\( pred \)$ (predecessor).
-2. A `while` statement in the form of `while name ≠ 0 do; end;` computes the function \( f(name) \) defined as 0 if `name` is 0, and undefined otherwise.
+1. `incr` or `decr` statements, which compute the primitive recursive functions $\sigma$ (successor) and $pred$ (predecessor).
+2. A `while` statement in the form of `while name ≠ 0 do; end;` computes the function f(name) defined as 0 if `name` is 0, and undefined otherwise.
 
-This function is equivalent to the partial recursive function $\( \mu y[\text{plus}(name, y) = 0] \)$, proving that single-statement programs compute partial recursive functions.
+This function is equivalent to the partial recursive function $\mu y[\text{plus}(name, y) = 0]$, proving that single-statement programs compute partial recursive functions.
 
 **Programs with Multiple Statements:**
 
-Considering programs with more than one statement, an inductive approach is used:
+Considering programs with more than one statement, we apply an inductive approach:
 
-1. The basis of induction assumes that a program with `n` statements computes a partial recursive function.
-2. When a program with `n+1` statements is considered, the inductive hypothesis applies to the first `n` statements, and the additional statement is handled separately.
+1. The basis of induction assumes that a program with n statements computes a partial recursive function.
+2. If the program with n+1 statements does not consist of one large while statement, it is a concatenation of two shorter programs, each computing a partial recursive function. By our induction hypothesis, the concatenation of these programs computes the composition of these functions, and thus, the entire program computes a partial recursive function.
 
 **Inductive Step for Programs with While Loops:**
 
-A program consisting of a single large `while` loop can be represented as:
+For a program consisting of one large `while` loop, we represent it as follows:
 
 ```
 while X ≠ 0 do;
@@ -145,16 +173,26 @@ while X ≠ 0 do;
 end;
 ```
 
-Here, `B` represents the body of the loop, which contains fewer than `n` statements. The inductive hypothesis implies that `B` computes a partial recursive function. When the loop is entered, it represents a function that combines primitive recursion with the identity function, as follows:
+The body of this loop, B, contains fewer than n statements. By our induction hypothesis, B computes a partial recursive function $h:\mathbb{N}^k \to \mathbb{N}^k$. We assume that the variable X in the while statement is one of the components of the k-tuple manipulated by B. If X were not affected by B, the loop would never terminate, suggesting that B influences X.
 
-- If `X` is 0, the function computed is the identity function.
-- If `X` is not 0, the function represented by the loop is a composition of functions computed within `B`.
+Using primitive recursion, we now define the function $f:\mathbb{N}^{k+1} \to \mathbb{N}^k$ by:
 
-The entire while structure computes the function $\( g(X) = f(X, \mu y[f'(X, y) = 0]) \)$, where $\( f' \)$ is the function computed by `B` and $\( g \)$ is the function computed by the entire while structure. Thus, the function computed by the while structure is partial recursive.
 
-**Conclusion of the Proof:**
+$f(\mathbf{X}, 0) = ident(\mathbf{X})$
 
-The proof concludes that any function computed by the bare-bones language, even with multiple statements and loops, is partial recursive. This supports the Church-Turing thesis, affirming that the bare-bones language's expressiveness is constrained to partial recursive functions. No programming language, regardless of its simplicity or complexity, exceeds the computational expressiveness afforded by partial recursive functions. The proof asserts that the bare-bones language is sufficient for algorithmic problem-solving within the bounds of partial recursive functions.
+
+$f(\mathbf{X}, y + 1) = h(f(\mathbf{X}, y), y)$
+
+
+Here, ident represents the identity function, which can be constructed from projection functions and is primitive recursive. The value of $f(\mathbf{X}, y)$ is a k-tuple produced by initializing the variables in B to $\mathbf{x}$ and executing the loop y times. The number of times B executes is $\mu y[\pi_j^k(f(\mathbf{X}, y)) = 0]$. Thus, the function $g:\mathbb{N}^k \to \mathbb{N}^k$ computed by the entire while structure is:
+
+$g(\mathbf{X}) = f(\mathbf{X}, \mu y[\pi_j^k \circ f(\mathbf{X}, y) = 0])$
+
+Hence, the function computed by the while structure is partial recursive.
+
+**Conclusion:**
+
+- The proof demonstrates that any function computed by the bare-bones language is partial recursive. This conclusion is in alignment with the Church-Turing thesis, which posits that the computable functions are precisely the partial recursive functions. The bare-bones language, with its ability to perform increments, decrements, and conditional looping, suffices to express any algorithmically solvable problem, thereby encapsulating the complete set of partial recursive functions.
 
 
 
