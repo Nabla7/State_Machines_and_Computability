@@ -187,11 +187,6 @@ The entire while structure computes the function $\( g(X) = f(X, \mu y[f'(X, y) 
 The proof concludes that any function computed by the bare-bones language, even with multiple statements and loops, is partial recursive. This supports the Church-Turing thesis, affirming that the bare-bones language's expressiveness is constrained to partial recursive functions. No programming language, regardless of its simplicity or complexity, exceeds the computational expressiveness afforded by partial recursive functions. The proof asserts that the bare-bones language is sufficient for algorithmic problem-solving within the bounds of partial recursive functions.
 
 
-The provided text discusses the concept of partial recursive functions and the process of minimization, which is a method to define functions within the framework of computability theory. The text can be structured more formally as follows:
-
----
-
-
 
 
 
