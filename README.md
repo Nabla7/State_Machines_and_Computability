@@ -17,6 +17,37 @@ A partial recursive function is a partial function from $\mathbb{N}^k$ to $\math
 5. Is closed under primitive recursion: If $g: \mathbb{N}^k \to \mathbb{N}$ and $h: \mathbb{N}^{k+2} \to \mathbb{N}$ belong to $\mathcal{C}$, then the function $f: \mathbb{N}^{k+1} \to \mathbb{N}$ defined recursively by $f(0, \mathbf{x}) = g(\mathbf{x})$ and $f(y+1, \mathbf{x}) = h(y, f(y, \mathbf{x}), \mathbf{x})$ also belongs to $\mathcal{C}$.
 6. Is closed under minimization: For any _total_ function $f: \mathbb{N}^{k+1} \to \mathbb{N}$ in $\mathcal{C}$, the partial function $g: \mathbb{N}^k \to \mathbb{N}$, defined by $g(\mathbf{x}) = c$ iff $f(c, \mathbf{x}) = 0$ and $f(d, \mathbf{x}) > 0$ for $0 \leq d < c$, also belongs to $\mathcal{C}$.
 
+**Minimization Process:**
+
+1. **Function Construction:** 
+   - A function \( f:\mathbb{N}^N \to \mathbb{N} \) is constructed from another function \( g:\mathbb{N}^{N+1} \to \mathbb{N} \).
+   - The new function \( f(x) \) is defined as the smallest \( y \) in \( \mathbb{N} \) such that \( g(x, y) = 0 \) and \( g(x, z) \) is defined for all \( z < y \).
+
+2. **Notation and Interpretation:**
+   - This is formally represented as \( f(x) = \mu y[g(x, y) = 0] \), read as "f(x) is the smallest nonnegative integer y for which g(x, y) is zero and g(x, z) is defined for all nonnegative integers z less than y."
+
+**Examples of Minimization:**
+
+1. **Undefined Values:**
+   - If there is no such \( y \) that satisfies \( g(x, y) = 0 \), then \( f(x) \) is undefined.
+
+2. **Integer Quotient Function via Minimization:**
+   - The integer quotient function, which is the integer portion of \( x/y \) if \( y \neq 0 \), is undefined if \( y = 0 \).
+   - This function can be constructed using minimization as \( \text{div}(x, y) = \mu t[(x + 1) - ((\text{mult}(t, y) + y)) = 0] \), where \( \text{mult} \) is a function representing multiplication.
+
+3. **Total Functions from Minimization:**
+   - Minimization can also produce total functions, such as the identity function \( f(x) = \mu y[\text{monus}(x, y) = 0] \), where \( \text{monus} \) is a monus operation (modified subtraction).
+
+**Computability and Minimization:**
+
+- If \( g \) is a computable function, then the minimization of \( g \), \( \mu y[g(x, y) = 0] \), is computed by iteratively calculating \( g(x, 0) \), \( g(x, 1) \), \( g(x, 2) \), and so on, until a value of 0 is obtained or a non-defined value is reached.
+- If \( g(x, z) \) is never zero for any \( z \), then \( f(x) \) is undefined.
+- If \( g(x, z) \) equals zero for some \( z \), then \( f(x) \) is defined and equals that \( z \).
+
+**Conclusion:**
+
+Minimization is a powerful tool in defining partial recursive functions, illustrating the capability to construct functions that may be undefined for some inputs, while also allowing the creation of total functions. When applied to computable functions, minimization ensures that the resulting function remains within the scope of partial recursive functions.
+
 ### Bare-Bones Programming Language 
 
 A bare-bones programming language has the following characteristics:
@@ -156,7 +187,9 @@ The entire while structure computes the function $\( g(X) = f(X, \mu y[f'(X, y) 
 The proof concludes that any function computed by the bare-bones language, even with multiple statements and loops, is partial recursive. This supports the Church-Turing thesis, affirming that the bare-bones language's expressiveness is constrained to partial recursive functions. No programming language, regardless of its simplicity or complexity, exceeds the computational expressiveness afforded by partial recursive functions. The proof asserts that the bare-bones language is sufficient for algorithmic problem-solving within the bounds of partial recursive functions.
 
 
+The provided text discusses the concept of partial recursive functions and the process of minimization, which is a method to define functions within the framework of computability theory. The text can be structured more formally as follows:
 
+---
 
 
 
