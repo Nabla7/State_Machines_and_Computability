@@ -5,14 +5,22 @@ A partial recursive function is a partial function of natural numbers which can 
 
 ### Definition of Partial Recursive Functions
 
-A partial recursive function is a partial function from \(\mathbb{N}^k\) to \(\mathbb{N}\) (where \(\mathbb{N}\) denotes the set of natural numbers and \(k \geq 0\) is finite). It belongs to the smallest class \(\mathcal{C}\) of partial functions that:
+A partial recursive function is a partial function from $\mathbb{N}^k$ to $\mathbb{N}$ (where $\mathbb{N}$ denotes the set of natural numbers and $k \geq 0$ is finite). It belongs to the smallest class $\mathcal{C}$ of partial functions that:
 
-1. Includes all constant functions \(1 \to \mathbb{N}\).
-2. Includes all projection maps \(\pi_i: \mathbb{N}^k \to \mathbb{N}\), for \(i = 1, \ldots, k\).
-3. Includes the successor function \(s: \mathbb{N} \to \mathbb{N}\).
-4. Is closed under composition: If \(f_1, \ldots, f_n: \mathbb{N}^{k} \to \mathbb{N}\) and \(g: \mathbb{N}^n \to \mathbb{N}\) belong to \(\mathcal{C}\), then \(g \circ (f_1, \ldots, f_n): \mathbb{N}^{k} \to \mathbb{N}\) also belongs to \(\mathcal{C}\).
-5. Is closed under primitive recursion: If \(g: \mathbb{N}^k \to \mathbb{N}\) and \(h: \mathbb{N}^{k+2} \to \mathbb{N}\) belong to \(\mathcal{C}\), then the function \(f: \mathbb{N}^{k+1} \to \mathbb{N}\) defined recursively by \(f(0, \mathbf{x}) = g(\mathbf{x})\) and \(f(y+1, \mathbf{x}) = h(y, f(y, \mathbf{x}), \mathbf{x})\) also belongs to \(\mathcal{C}\).
-6. Is closed under minimization: For any _total_ function \(f: \mathbb{N}^{k+1} \to \mathbb{N}\) in \(\mathcal{C}\), the partial function \(g: \mathbb{N}^k \to \mathbb{N}\), defined by \(g(\mathbf{x}) = c\) iff \(f(c, \mathbf{x}) = 0\) and \(f(d, \mathbf{x}) > 0\) for \(0 \leq d < c\), also belongs to \(\mathcal{C}\).
+1. Includes all constant functions $1 \to \mathbb{N}$.
+2. Includes all projection maps $\pi_i: \mathbb{N}^k \to \mathbb{N}$, for $i = 1, \ldots, k$.
+3. Includes the successor function $s: \mathbb{N} \to \mathbb{N}$.
+4. Is closed under composition: If $f_1, \ldots, f_n: \mathbb{N}^{k} \to \mathbb{N}$ and $g: \mathbb{N}^n \to \mathbb{N}$ belong to $\mathcal{C}$, then $g \circ (f_1, \ldots, f_n): \mathbb{N}^{k} \to \mathbb{N}$ also belongs to $\mathcal{C}$.
+5. Is closed under primitive recursion: If $g: \mathbb{N}^k \to \mathbb{N}$ and $h: \mathbb{N}^{k+2} \to \mathbb{N}$ belong to $\mathcal{C}$, then the function $f: \mathbb{N}^{k+1} \to \mathbb{N}$ defined recursively by $f(0, \mathbf{x}) = g(\mathbf{x})$ and $f(y+1, \mathbf{x}) = h(y, f(y, \mathbf{x}), \mathbf{x})$ also belongs to $\mathcal{C}$.
+6. Is closed under minimization: For any _total_ function $f: \mathbb{N}^{k+1} \to \mathbb{N}$ in $\mathcal{C}$, the partial function $g: \mathbb{N}^k \to \mathbb{N}$, defined by $g(\mathbf{x}) = c$ iff $f(c, \mathbf{x}) = 0$ and $f(d, \mathbf{x}) > 0$ for $0 \leq d < c$, also belongs to $\mathcal{C}$.
+
+
+
+
+
+
+
+
 
 ### Bare-Bones Programming Language 
 
