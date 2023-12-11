@@ -47,16 +47,16 @@ Our goal is to establish that any partial recursive function can be computed by 
 - **Control Structures**: A single loop construct (`while`).
 
 **Convention for Function Representation:**
-- To compute a function \( f: \mathbb{N}^M \to \mathbb{N}^N \), identifiers \( X_1, ..., X_M \) are used for inputs and \( Z_1, ..., Z_N \) for outputs.
+- To compute a function $\( f: \mathbb{N}^M \to \mathbb{N}^N \)$, identifiers $\( X_1, ..., X_M \)$ are used for inputs and $\( Z_1, ..., Z_N \)$ for outputs.
 
 **Computing Initial Functions:**
-- Zero function \( \sigma \) is implemented as `clear Z;`.
-- Successor function \( S \) is implemented as:
+- Zero function $\( \sigma \)$ is implemented as `clear Z;`.
+- Successor function $\( S \)$ is implemented as:
   ```
   Z_1 ← X_i;
   incr Z_1;
   ```
-- Projection function \( P_i^j \) is implemented as `Z_1 ← X_j;`.
+- Projection function $\( P_i^j \)$ is implemented as `Z_1 ← X_j;`.
 
 **Programs Representing Basic Operations (Figure 4.15):**
 - **Copy Operation**: The program to copy the value from `name1` to `name2` is given as:
@@ -75,7 +75,7 @@ Our goal is to establish that any partial recursive function can be computed by 
   ```
 
 **General Partial Recursive Functions:**
-- For functions computed by programs \( F \) and \( G \), concatenate \( G \) onto \( F \) and adjust outputs from \( F \) to serve as inputs to \( G \).
+- For functions computed by programs $\( F \)$ and $\( G \)$, concatenate $\( G \)$ onto $\( F \)$ and adjust outputs from $\( F \)$ to serve as inputs to $\( G \)$.
 
 **Program for Primitive Recursion (Figure 4.16):**
 - The program to compute a function defined by primitive recursion is:
@@ -89,7 +89,7 @@ Our goal is to establish that any partial recursive function can be computed by 
   ```
 
 **Program for Minimization (Figure 4.17):**
-- To compute \( \mu y[g(x, y) = 0] \), the program is:
+- To compute $\( \mu y[g(x, y) = 0] \)$, the program is:
   ```
   clear X_n+1;
   G;
@@ -102,3 +102,64 @@ Our goal is to establish that any partial recursive function can be computed by 
 
 **Conclusion:**
 We have structured a proof that demonstrates the computability of any partial recursive function using a bare-bones programming language. This is supported by the Church-Turing thesis, which asserts that any algorithmically solvable problem can be solved using a language that allows for nonnegative integer manipulation, incrementing, decrementing, and looping. Additional features in a programming language provide convenience but are not necessary for computational completeness.
+
+
+-----
+
+
+
+**Theorem: Bare-Bones Programmability Implies Partial Recursive**
+
+**Overview of the Bare-Bones Language's Capabilities:**
+
+The surprising computational strength of the bare-bones language raises a conjecture about its limitations. If the language could compute functions beyond what is partial recursive, it would contradict the Church-Turing thesis. However, the bare-bones language is indeed bound by the capabilities of partial recursive functions.
+
+**Fundamental Language Requirements:**
+
+A program in the bare-bones language must involve at least one of the following statements: `incr`, `decr`, or `while`. Each statement involves a variable, and collectively, these variables form a k-tuple that represents the input-output mapping of the program.
+
+**Single Statement Programs:**
+
+When a program consists of only one statement, there are three possibilities:
+
+1. `incr` or `decr` statements, which compute the primitive recursive functions $\( \sigma \)$ (successor) and $\( pred \)$ (predecessor).
+2. A `while` statement in the form of `while name ≠ 0 do; end;` computes the function \( f(name) \) defined as 0 if `name` is 0, and undefined otherwise.
+
+This function is equivalent to the partial recursive function $\( \mu y[\text{plus}(name, y) = 0] \)$, proving that single-statement programs compute partial recursive functions.
+
+**Programs with Multiple Statements:**
+
+Considering programs with more than one statement, an inductive approach is used:
+
+1. The basis of induction assumes that a program with `n` statements computes a partial recursive function.
+2. When a program with `n+1` statements is considered, the inductive hypothesis applies to the first `n` statements, and the additional statement is handled separately.
+
+**Inductive Step for Programs with While Loops:**
+
+A program consisting of a single large `while` loop can be represented as:
+
+```
+while X ≠ 0 do;
+    B
+end;
+```
+
+Here, `B` represents the body of the loop, which contains fewer than `n` statements. The inductive hypothesis implies that `B` computes a partial recursive function. When the loop is entered, it represents a function that combines primitive recursion with the identity function, as follows:
+
+- If `X` is 0, the function computed is the identity function.
+- If `X` is not 0, the function represented by the loop is a composition of functions computed within `B`.
+
+The entire while structure computes the function $\( g(X) = f(X, \mu y[f'(X, y) = 0]) \)$, where $\( f' \)$ is the function computed by `B` and $\( g \)$ is the function computed by the entire while structure. Thus, the function computed by the while structure is partial recursive.
+
+**Conclusion of the Proof:**
+
+The proof concludes that any function computed by the bare-bones language, even with multiple statements and loops, is partial recursive. This supports the Church-Turing thesis, affirming that the bare-bones language's expressiveness is constrained to partial recursive functions. No programming language, regardless of its simplicity or complexity, exceeds the computational expressiveness afforded by partial recursive functions. The proof asserts that the bare-bones language is sufficient for algorithmic problem-solving within the bounds of partial recursive functions.
+
+
+
+
+
+
+
+
+
