@@ -38,7 +38,7 @@ A partial recursive function is a partial function from $\mathbb{N}^k$ to $\math
 
 **Conclusion:**
 
-Minimization is a powerful tool in defining partial recursive functions, illustrating the capability to construct functions that may be undefined for some inputs, while also allowing the creation of total functions. When applied to computable functions, minimization ensures that the resulting function remains within the scope of partial recursive functions.
+Minimization is a tool used to define partial recursive functions, with it we can construct functions that may be undefined for some inputs, while also allowing the creation of total functions. When applied to computable functions, minimization ensures that the resulting function remains within the scope of partial recursive functions.
 
 ### Bare-Bones Programming Language 
 
@@ -152,9 +152,25 @@ while Z_1 ≠ 0 do;        // Check if the condition g(x, y) = 0 is met
 end;
 Z_1 ← X_n+1;             // Assign the minimal satisfying y to the output variable
 ```
+- **Initialization of Counter**: 
+  - `clear X_{n+1};` - This line initializes a counter variable, `X_{n+1}`, which will be used to track the value of $y$ as the program iteratively searches for the minimal value that satisfies $g(\mathbf{x}, y) = 0$.
+
+- **Initial Computation of Function $g$**:
+  - `G;` - The program G is executed to compute the function $g$ for the initial value of the counter. This is the starting point of the search for the minimal satisfying $y$.
+
+- **Iterative Search for Minimal $y$**:
+  - `while Z_1 ≠ 0 do;` - This loop represents the core of the minimization process. It continues as long as the condition $g(\mathbf{x}, y) ≠ 0$ holds.
+  - `incr X_{n+1};` - Inside the loop, the counter $X_{n+1}$ is incremented. This step simulates checking the next value of $y$ in the search for the condition $g(\mathbf{x}, y) = 0$.
+  - `G;` - After incrementing the counter, program G is executed again to re-evaluate $g$ with the new counter value. This re-evaluation is essential to check if the incremented $y$ satisfies the condition.
+
+- **Assigning the Result**:
+  - `end;` - The loop ends when $g(\mathbf{x}, y) = 0$ is found, meaning the minimal $y$ has been identified.
+  - `Z_1 ← X_{n+1};` - Finally, the minimal satisfying value of $y$ is assigned to the output variable $Z_1$. This value represents the result of the minimization operation $\mu y[g(\mathbf{x}, y) = 0]$.
+
+- The program iteratively increments a counter to find the smallest value of $y$ that makes $g(\mathbf{x}, y)$ equal to zero. It simulates the principle of minimization in an iterative form.
 
 **Conclusion:**
-- In summary, the above constructs demonstrate that the bare-bones programming language possesses the requisite expressive power to model any partial recursive function. The language's ability to increment, decrement, and iterate over conditions, coupled with the absence of side effects, ensures the accurate computation of complex recursive functions. This complete proof substantiates the Church-Turing thesis by confirming that a language as elementary as the bare-bones language is computationally complete, capable of expressing any algorithmically solvable problem.
+- The above constructs demonstrate that the class of partial recursive functions  . The language's ability to increment, decrement, and iterate over conditions, coupled with the absence of side effects, ensures the accurate computation of complex recursive functions. This complete proof substantiates the Church-Turing thesis by confirming that a language as elementary as the bare-bones language is computationally complete, capable of expressing any algorithmically solvable problem.
 
 
 -----
