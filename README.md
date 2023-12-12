@@ -93,6 +93,9 @@ Our goal is to establish that any partial recursive function can be computed by 
 **General Partial Recursive Functions:**
 - The computational capabilities of the bare-bones language extend to the synthesis of general partial recursive functions. This is established by combining simpler functions into more complex ones, as illustrated by the following constructions:
 
+**Composition**
+- For functions computed by programs $F$ and $G$, concatenate $G$ onto $F$ and adjust outputs from $F$ to serve as inputs to $G$.
+
 **Primitive Recursion Construction:**
 - Consider the situation where program $G$ computes a partial function $g: \mathbb{N}^k \to \mathbb{N}^m$, and program $H$ computes another function $h: \mathbb{N}^{k+m+1} \to \mathbb{N}^m$. A third function $f: \mathbb{N}^{k+1} \to \mathbb{N}^m$ can be defined by primitive recursion:
 
@@ -105,7 +108,7 @@ $f(\mathbf{x}, y + 1) = h(\mathbf{x}, y, f(\mathbf{x}, y))$
 - The program to compute $f$, as delineated in Figure 4.16, assumes that $G$ and $H$ are side-effect-free.
 
 **Program for Primitive Recursion (Figure 4.16):**
-- The bare-bones language facilitates the encoding of the primitive recursive function $f$ via the following program structure, reflecting the recursive definition provided:
+- The bare-bones language facilitates the encoding of the primitive recursive function $f$ via the following program structure, reflecting the recursive definition:
 
 ```plaintext
 clear X_m+1;             // Set the auxiliary variable to zero
