@@ -71,7 +71,7 @@ Our goal is to establish that any partial recursive function can be computed by 
 - To compute a function $f: \mathbb{N}^M \to \mathbb{N}^N$, identifiers $X_1, ..., X_M$ are used for inputs and $Z_1, ..., Z_N$ for outputs.
 
 **Computing Initial Functions:**
-- Zero function $\sigma$ is implemented as `clear Z;`.
+- Zero function (example of a constant function) $\sigma$ is implemented as `clear Z;`.
 - Successor function $S$ is implemented as:
   ```
   Z_1 ← X_i;
@@ -89,6 +89,7 @@ Our goal is to establish that any partial recursive function can be computed by 
      decr Z;
    end;
    ```
+- Now we have shown that constant functions, successor functions and projection functions can be expressed in the bare bones language.
 
 **General Partial Recursive Functions:**
 - The computational capabilities of the bare-bones language extend to the synthesis of general partial recursive functions. This is established by combining simpler functions into more complex ones, as illustrated by the following constructions:
@@ -111,13 +112,30 @@ $f(\mathbf{x}, y + 1) = h(\mathbf{x}, y, f(\mathbf{x}, y))$
 - The bare-bones language facilitates the encoding of the primitive recursive function $f$ via the following program structure, reflecting the recursive definition:
 
 ```plaintext
-clear X_m+1;             // Set the auxiliary variable to zero
-while Y ≠ 0 do;          // Begin a loop that simulates recursive depth
-  incr X_m+1;            // Increment to prepare for the next recursive call
-  G                      // Embed the computation of function g
-end;
-Z_1 ← X_m+1;             // Assign the result to the output variable
+G  
+aux←X_{k+1};  
+clear X_{k+1};  
+while aux ≠ 0 do;  
+    X_{k+2}←Z_1;  
+    X_{k+3}←Z_2;  
+    ·  
+    ·  
+    ·  
+    X_{k+m+1}←Z_m;  
+    H  
+    incr X_{k+1};  
+    decr aux;  
+end;  
+
 ```
+
+- The execution of program $G$ at the beginning corresponds to computing the base case of the function $f$, which is $f(\mathbf{x}, 0) = g(\mathbf{x})$. This is where $f$ is defined for the initial condition when the recursion 'depth' (second argument) is zero.
+
+- The `while` loop and the execution of program $H$ within this loop correspond to the recursive case of the function $f$. Each iteration of the loop represents a single step in the recursive process, where the function $f$ is defined as $f(\mathbf{x}, y + 1) = h(\mathbf{x}, y, f(\mathbf{x}, y))$. Here, $H$ computes the value of $f$ at each step, using the values from the previous step.
+
+- The variables `aux`, `X_{k+1}`, and others are used to manage and keep track of the recursion depth and pass the intermediate results between the computations of $G$ and $H$.
+
+- The entire sequence of operations in the code is a procedural implementation of the function $f$, as defined by the primitive recursion of the class of partial recursive functions.
 
 **Minimization Construction:**
 - If $G$ is a program within this language that calculates $g: \mathbb{N}^{k+1} \to \mathbb{N}$, we can construct a program that determines the smallest $y$ such that $g(\mathbf{x}, y) = 0$, thus performing the minimization operation.
